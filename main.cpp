@@ -16,7 +16,9 @@ using namespace std;
 int main()
 {
     // initialize variables
-    string input_string = "";
+    string input_string = "";           // the keyboard input string
+    const int tokens_length = 10;       // max number of tokens
+    string tokens[tokens_length];       // array to hold the tokens
 
     // simple welcome message to know the program is running
     cout << "\n-----Welcome to the GNUish shell!-----\n" << endl;
