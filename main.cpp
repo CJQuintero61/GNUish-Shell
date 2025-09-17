@@ -1,7 +1,7 @@
 /*
     File: main.cpp
     Made By: Christian Quintero
-    Last Updated: 09/12/2025
+    Last Updated: 09/16/2025
 
     This file is part of project 1 for Operating Systems (COSC-3346-001)
 
@@ -16,28 +16,28 @@ using namespace std;
 int main()
 {
     // initialize variables
-    string keyboard_input = "";
+    string input_string = "";
 
     // simple welcome message to know the program is running
-    cout << "Welcome to the GNUish shell!" << endl << endl;
+    cout << "\n-----Welcome to the GNUish shell!-----\n" << endl;
 
 
     // main loop for the shell
     // uses an infinite loop that can be exited with the "exit" command
     do
     {
-        cout << "Enter a UNIX command: ";
-        getline(cin, keyboard_input);
+        cout << "Enter a UNIX command $ ";
+        getline(cin, input_string);
 
         // check for exit command
-        if(keyboard_input == "exit")
+        if(input_string == "exit")
         {
             cout << endl << "Exiting the GNUish shell. Goodbye!" << endl;
             break;
         }
 
         // simple code 
-        cout << "You entered: " << keyboard_input << endl << endl;
+        cout << "You entered: " << input_string << endl << endl;
 
 
 
