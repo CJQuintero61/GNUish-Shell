@@ -35,6 +35,7 @@ class Shell
         void get_input();                                // gets user input
         bool parse_input();                              // parses the input string into tokens and strores them in the tokens array
         void execute_command();                          // executes the command based on the tokens
+        void print_tokens();                             // prints the tokens 
 
 };
 

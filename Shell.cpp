@@ -82,7 +82,7 @@ void Shell::run()
             }
 
             // run the desired command
-            //execute_command();
+            print_tokens();
         }
 
     } while (true);
@@ -143,3 +143,18 @@ bool Shell::parse_input()
 
     return true;   
 } // end parse_input
+
+void Shell::print_tokens()
+{
+    /*
+        Shell::print_tokens
+
+        This method prints the tokens stored in the tokens array.
+    */
+
+    for (int i = 0; i < tokens_count; i++)
+    {
+        cout << tokens[i] << endl;
+    }
+
+} // end print_tokens
