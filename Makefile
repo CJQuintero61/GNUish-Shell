@@ -45,7 +45,7 @@ endif
 
 # final executable name
 # gnuish-shell.exe on Windows, gnuish-shell on Linux
-TARGET := $(TARGET_BASE)$(EXE)
+TARGET = $(TARGET_BASE)$(EXE)
 
 # build the program :)
 all: $(TARGET)
