@@ -30,19 +30,6 @@ EXE =                          # Linux executables have no extension
 RUN = ./$(TARGET_BASE)         # the program to run 
 RM  = rm -f                    # delete files
 
-# Windows-specific overrides
-ifeq ($(OS),Windows_NT)
-    EXE = .exe
-    # if using a Unix-like shell (MSYS/Git Bash), use Unix commands
-    ifneq (,$(findstring sh,$(SHELL)))
-        RUN = ./$(TARGET_BASE)$(EXE)
-        RM  = rm -f
-    else # for CMD or PowerShell
-        RUN = .\$(TARGET_BASE)$(EXE)
-        RM  = del /q
-    endif
-endif
-
 # final executable name
 # gnuish-shell.exe on Windows, gnuish-shell on Linux
 TARGET = $(TARGET_BASE)$(EXE)
