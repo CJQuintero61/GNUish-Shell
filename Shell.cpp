@@ -57,7 +57,6 @@ void Shell::run()
     // infinite loop to run the shell
     do
     {
-
         // reset the variables for each loop iteration
         tokens_count = 0;
         input_string = "";
@@ -74,14 +73,15 @@ void Shell::run()
         // the input_flag marks if the input is valid or not
         // if too many tokens were entered, it will be false
         input_flag = parse_input();
-
         if(input_flag == false)
         {
-            // if too many tokens were entered, restart the loop
+            // if too many tokens were entered
+            // add to history then restart the loop
+            add_to_history(input_string);
             continue;
         }
 
-        // early validations
+        // match the first token case
         if(tokens[0] == "exit")
         {
             // if the user entered "exit", break the loop and end the program
@@ -99,8 +99,15 @@ void Shell::run()
             add_to_history(input_string); 
 
             // print the command history
+            // then reset the loop
             history();
             continue; 
+        }
+        else if(tokens[0] == "r")
+        {
+            // changes the tokens to the nth command from history
+            run_nth_command(); 
+            continue;
         }
 
         // add to history
@@ -108,7 +115,6 @@ void Shell::run()
 
         // run the desired command
         execute_command();
-    
 
     } while (true);
     
@@ -303,6 +309,80 @@ void Shell::add_to_history(const string& command)
     command_history[0] = command;
 
 } // end add_to_history
+
+void Shell::run_nth_command()
+{
+    /*
+        Shell::run_nth_command
+
+        This method reruns the nth command from history.
+        If no parameter is given, it reruns the most recent command.
+
+        NOTE:: n == 0 is the same as n == 1, they will both run the most recent command.
+        This is because entering "r" is the same as enterring "r 1"
+    */
+
+    int n = 0; // the command number to run
+
+    try 
+    {
+        n = stoi(tokens[1]); // convert the second token to an integer
+    }
+    catch (exception& e) 
+    {
+        // if conversion fails, rerun the most recent command
+        n = 0; 
+    }
+
+    // Reset tokens
+    for (int i = 0; i < MAX_TOKENS; i++)
+    {
+        tokens[i] = "";
+    }
+    tokens_count = 0;
+
+    // validate n, must be between 1 and MAX_HISTORY
+    if (n >= 1 && n <= MAX_HISTORY)
+    {
+        input_string = command_history[n - 1]; // get the nth command from history
+    }
+    else if (n == 0)
+    {
+        // get the most recent command
+        // same as entering "r 1"
+        input_string = command_history[0]; 
+    }
+    else
+    {
+        cout << "[ERROR]::Command number out of range. Please enter a number between 1 and " << MAX_HISTORY << "." << endl;
+        return;
+    }
+
+    // Re-parse as if user typed it
+    bool input_flag = parse_input();
+    if (input_flag == false) 
+    {
+        cout << "[ERROR]::The command in history has too many tokens. Cannot execute." << endl;
+
+        // the command that gets re-executed, even if it has too many params, 
+        // gets added to history again
+        add_to_history(input_string); 
+        return;
+    }
+
+    int k = 0; 
+    while(tokens[k] != "" && k < MAX_TOKENS)
+    {
+        cout << "token[" << k << "]: " << tokens[k] << endl;
+        k++;
+    }
+
+    // Add this command to history
+    add_to_history(input_string);
+
+    // Execute the command
+    execute_command();
+}
 
 void Shell::print_tokens()
 {

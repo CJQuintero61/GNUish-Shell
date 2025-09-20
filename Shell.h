@@ -40,7 +40,7 @@ class Shell
         void execute_command();                          // executes the command based on the tokens
         void history();                                  // prints the last 10 commands entered
         void add_to_history(const string& command);      // adds command to history queue
-        void run_rth_command(int r);                     // runs the rth command from history
+        void run_nth_command();                          // runs the nth command from history
         void print_tokens();                             // prints the tokens 
 
 };
