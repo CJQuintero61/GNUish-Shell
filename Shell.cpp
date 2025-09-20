@@ -233,8 +233,6 @@ void Shell::execute_command()
     }
     else
     {
-        // in parent process
-
         // wait for the child process to finish
         int status;
         wait(&status); 
@@ -355,6 +353,13 @@ void Shell::run_nth_command()
     else
     {
         cout << "[ERROR]::Command number out of range. Please enter a number between 1 and " << MAX_HISTORY << "." << endl;
+        return;
+    }
+
+    // validate that the command exists
+    if (input_string == "")
+    {
+        cout << "[ERROR]::No command found in history for the given number." << endl;
         return;
     }
 
