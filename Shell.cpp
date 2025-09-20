@@ -95,7 +95,7 @@ void Shell::run()
         }
         else if(tokens[0] == "history" || tokens[0] == "hist")
         {
-            // add the "history" command to the history
+            // add the history command to the history
             add_to_history(input_string); 
 
             // print the command history
