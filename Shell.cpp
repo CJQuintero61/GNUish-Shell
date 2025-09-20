@@ -35,6 +35,12 @@ Shell::Shell()
         tokens[i] = "";                 
     }
 
+    // initialize the command history array to empty strings
+    for (int i = 0; i < MAX_HISTORY; i++)
+    {
+        command_history[i] = "";
+    }
+
 } // end constructor
 
 void Shell::run()
@@ -87,6 +93,18 @@ void Shell::run()
             // if the user entered nothing, restart the loop
             continue; 
         }
+        else if(tokens[0] == "history" || tokens[0] == "hist")
+        {
+            // add the "history" command to the history
+            add_to_history(input_string); 
+
+            // print the command history
+            history();
+            continue; 
+        }
+
+        // add to history
+        add_to_history(input_string);
 
         // run the desired command
         execute_command();
@@ -217,6 +235,74 @@ void Shell::execute_command()
     }
     
 } // end execute_command
+
+void Shell::history()
+{
+    /*
+        Shell::history
+
+        This method prints the last 10 commands entered with the most recent command last.
+        This means the queue prints from last to first
+    */
+
+    // count the current number of commands in history
+    int command_count = 0;
+    for (int i = 0; i < MAX_HISTORY; i++)
+    {
+        if (command_history[i] != "")
+        {
+            command_count++;
+        }
+    }
+
+    cout << "\n-----Command History (most recent command last)-----\n" << endl;
+    for (int i = command_count - 1; i >= 0; i--)
+    {
+        if (i == command_count - 1)
+        {
+            // oldest command
+            cout << "[" << i + 1 << "] (oldest): " << command_history[i] << endl;
+            continue;
+        }
+        else if(i == 0)
+        {
+            // newest command
+            cout << "[" << i + 1 << "] (newest): " << command_history[i] << endl;
+            continue;
+        }
+        else
+        {
+            // middle commands
+            cout << "[" << i + 1 << "]: " << command_history[i] << endl;
+        }
+
+    }
+
+    cout << "\n----------------------------------------------------\n" << endl;
+
+} // end history
+
+void Shell::add_to_history(const string& command)
+{
+    /*
+        Shell::add_to_history
+
+        params:
+            command: string - the command to add to history
+
+        This method adds a command to the history queue.
+    */
+
+    // shift all commands in the queue to the right
+    for (int i = MAX_HISTORY - 1; i > 0; i--)
+    {
+        command_history[i] = command_history[i - 1];
+    }
+
+    // add the new command to the front of the queue
+    command_history[0] = command;
+
+} // end add_to_history
 
 void Shell::print_tokens()
 {
