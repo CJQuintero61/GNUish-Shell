@@ -375,11 +375,15 @@ void Shell::run_nth_command()
         return;
     }
 
-    int k = 0; 
-    while(tokens[k] != "" && k < MAX_TOKENS)
+    // notify the user which command is being run
+    cout << "\nRe-running command: " << input_string << endl;
+    
+    // if the command is "history" or "hist", just print the history again
+    if (tokens[0] == "history" || tokens[0] == "hist")
     {
-        cout << "token[" << k << "]: " << tokens[k] << endl;
-        k++;
+        add_to_history(input_string);
+        history();
+        return;
     }
 
     // Add this command to history
