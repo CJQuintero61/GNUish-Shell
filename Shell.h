@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <string>
+#include <limits.h>    // for PATH_MAX
 using namespace std;
 
 class Shell
@@ -29,6 +30,7 @@ class Shell
         string tokens[MAX_TOKENS];                              // array to hold the tokens
         string input_string;                                    // the keyboard input string
         string command_history[MAX_HISTORY];                    // array to hold command history
+        char cwd[PATH_MAX];                                     // current working directory
 
 
     

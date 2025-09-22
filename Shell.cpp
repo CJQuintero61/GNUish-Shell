@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+#include <limits.h>    // for PATH_MAX
 using namespace std;
 
 Shell::Shell()
@@ -27,6 +28,7 @@ Shell::Shell()
 
     tokens_count = 0;
     input_string = "";
+    getcwd(cwd, PATH_MAX);                         // get the current working directory
     input_flag = true;
     
     // initialize the tokens array to empty strings
@@ -61,6 +63,9 @@ void Shell::run()
         tokens_count = 0;
         input_string = "";
         input_flag = true;
+        getcwd(cwd, PATH_MAX);                         // get the current working directory
+
+        // reset the tokens array to empty strings
         for (int i = 0; i < MAX_TOKENS; i++)
         { 
             tokens[i] = "";
@@ -133,7 +138,7 @@ void Shell::get_input()
     
     string str = "";       
 
-    cout << "\nEnter a UNIX command $ ";
+    cout << "\n" << cwd <<" $ ";
     getline(cin, str);
 
     input_string = str;
