@@ -28,7 +28,6 @@ Shell::Shell()
 
     tokens_count = 0;
     input_string = "";
-    getcwd(cwd, PATH_MAX);                         // get the current working directory
     input_flag = true;
     
     // initialize the tokens array to empty strings
@@ -138,7 +137,18 @@ void Shell::get_input()
     
     string str = "";       
 
-    cout << "\n" << cwd <<" $ ";
+    // get the current working directory
+    // returns null on failure, cwd contains a pointer to the buffer on success
+    if (getcwd(cwd, PATH_MAX) != NULL)
+    {
+        cout << "\n" << cwd <<" $ ";
+    }     
+    else
+    {   
+        // default prompt if getcwd fails
+        cout << "\nEnter a UNIX command $ ";
+    }
+
     getline(cin, str);
 
     input_string = str;
