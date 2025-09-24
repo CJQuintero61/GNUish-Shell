@@ -10,7 +10,13 @@ TO RUN:
     5. Use the shell!   - enjoy using my project! 
     6. Run `make clean` - to clean up any files made by makefile
 
-This repo contains all project related files for project 1 for Operating Systems (COSC-3346-001).
+DESCRIPTION:
+    This repo contains all project related files for project 1 for Operating Systems (COSC-3346-001).
+    The project is a GNUish shell that can parse an input string for tokens and run the desired UNIX command.
+    There is also a new history command that can be displayed by using "hist" to show, up to, the last
+    10 commands. "r n" can be used to re-run the nth command. Ex. "r" reruns the last command, "r 3" reruns
+    the 3rd command from the history list, and so on. 
+
 
 
 
